@@ -2,37 +2,46 @@
 
 <main class="machine">
 
-    <h1 class="machine__title">Virtual Coffee Machine</h1>
+    <header class="machine__header">
+        <h1 class="machine__title">Virtual Coffee Machine</h1>
+    </header>
 
-    <section class="balance" aria-label="Current balance">
-        <p class="balance__label">Balance</p>
-        <p class="balance__amount">@FormatAmount(Machine.BalanceCents)</p>
-    </section>
+    <aside class="payment" aria-label="Payment">
+        <section class="balance" aria-label="Current balance">
+            <p class="balance__label">Balance</p>
+            <p class="balance__amount">@FormatAmount(Machine.BalanceCents)</p>
+        </section>
 
-    <p class="message" role="status" aria-live="polite">@_message</p>
+        <p class="message" role="status" aria-live="polite">@_message</p>
 
-    <section class="coins" aria-label="Insert a coin">
-        <h2 class="section__title">Insert a coin</h2>
-        <div class="coins__grid">
-            @foreach (var cents in CoinButtons)
-            {
-                <button type="button"
-                        class="coin"
-                        aria-label="Insert @FormatCoin(cents) coin"
-                        @onclick="() => InsertCoin(cents)">
+        <section class="coins" aria-label="Insert a coin">
+            <h2 class="section__title">Insert a coin</h2>
+            <div class="coins__grid">
+                @foreach (var cents in CoinButtons)
+                {
+                    <button type="button"
+                            class="coin"
+                            aria-label="Insert @FormatCoin(cents) coin"
+                            @onclick="() => InsertCoin(cents)">
 
-                    <RemoteImage Path="@($"coins/{cents}.png")"
-                                 Alt="@cents.ToString()"
-                                 CssClass="coin__image" />
+                        <RemoteImage Path="@($"coins/{cents}.png")"
+                                     Alt="@cents.ToString()"
+                                     CssClass="coin__image" />
 
-                    <span class="coin__label">@FormatCoin(cents)</span>
-                </button>
-            }
-        </div>
-    </section>
+                        <span class="coin__label">@FormatCoin(cents)</span>
+                    </button>
+                }
+            </div>
+        </section>
+
+        <p class="coins__note">1c and 2c coins are not accepted.</p>
+    </aside>
 
     <section class="coffees" aria-label="Choose your coffee">
-        <h2 class="section__title">Choose your coffee</h2>
+        <div class="coffees__heading">
+            <h2>Choose your coffee</h2>
+            <p>Insert your coins and place your order</p>
+        </div>
         <div class="coffees__grid">
             @foreach (var coffeeType in CoffeeTypes)
             {
@@ -44,16 +53,19 @@
                                  Alt="@coffeeType.ToString()"
                                  CssClass="coffee__image" />
 
-                    <h3 class="coffee__name">@coffeeType</h3>
-                    <p class="coffee__price">@FormatAmount(priceCents)</p>
+                    <div class="coffee__details">
+                        <h3 class="coffee__name">@coffeeType</h3>
+                        <p class="coffee__price">@FormatAmount(priceCents)</p>
+                    </div>
+                    <p class="coffee__hint">
+                        @(missingCents > 0 ? $"Insert {FormatAmount(missingCents)} more" : "Ready to order")
+                    </p>
                     <button type="button"
                             class="coffee__buy"
+                            aria-label="Order @coffeeType"
                             @onclick="() => BuyAsync(coffeeType)">
                         Order
                     </button>
-                    <p class="coffee__hint">
-                        @(missingCents > 0 ? $"Insert {FormatAmount(missingCents)} more" : "Ready")
-                    </p>
                 </article>
             }
         </div>

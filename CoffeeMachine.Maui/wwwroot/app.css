@@ -1,387 +1,164 @@
 :root {
-    --surface: #f5f1ec;
-    --panel: #ffffff;
-    --ink: #2b211b;
-    --muted: #6d6159;
-    --line: #ded4c9;
-    --accent: #4b2e1f;
-    --accent-ink: #ffffff;
-    --good: #1f6b43;
-    --warn: #9a3412;
-    --radius: 12px;
+    --surface: #f4f2ed;
+    --panel: #fcfbf8;
+    --ink: #272823;
+    --muted: #66665d;
+    --line: #d8d7ce;
+    --accent: #395345;
+    --good: #315d43;
 }
-
-* {
-    box-sizing: border-box;
-}
-
+* { box-sizing: border-box; }
 html, body {
     margin: 0;
-    padding: 0;
     background: var(--surface);
     color: var(--ink);
     font-family: "Segoe UI", Roboto, system-ui, sans-serif;
     font-size: 16px;
-    line-height: 1.45;
+    line-height: 1.5;
 }
-
+button { font: inherit; cursor: pointer; }
+button:focus-visible, a:focus-visible { outline: 3px solid #316bb0; outline-offset: 4px; }
 .machine {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 16px 16px 48px;
+    max-width: 1280px;
+    margin: 32px auto;
+    padding: 0 32px 32px;
     display: grid;
-    gap: 16px;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-areas: "header header" "coffees payment";
+    align-items: start;
 }
-
-.machine__title {
-    margin: 8px 0 0;
-    font-size: 1.5rem;
-    text-align: center;
-}
-
-.section__title {
-    margin: 0 0 8px;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-}
-
-/* Balance ---------------------------------------------------------------- */
-
-.balance {
-    background: var(--accent);
-    color: var(--accent-ink);
-    border-radius: var(--radius);
-    padding: 16px;
-    text-align: center;
-}
-
-.balance__label {
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.8rem;
-    opacity: 0.8;
-}
-
-.balance__amount {
-    margin: 4px 0;
-    font-size: 2.5rem;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-}
-
-.balance__coins {
-    margin: 0;
-    font-size: 0.85rem;
-    opacity: 0.85;
-}
-
-/* Message ---------------------------------------------------------------- */
-
-.message {
-    margin: 0;
-    min-height: 1.5rem;
-    padding: 10px 14px;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    text-align: center;
-}
-
-/* Coins ------------------------------------------------------------------ */
-
-.coins, .coffees, .receipt, .history {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 16px;
-}
-
-.coins__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.coin {
-    min-height: 84px;
-    aspect-ratio: 1 / 1;
-    border: 2px solid var(--accent);
-    border-radius: 50%;
-    background: #fdf8f2;
-    color: var(--accent);
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    align-content: center;
-    gap: 2px;
-    padding: 6px;
-    transition: transform 120ms ease, background 120ms ease;
-}
-
-.coin:hover {
-    background: #f0e4d6;
-}
-
-.coin:active {
-    transform: scale(0.96);
-}
-
-.coin__image {
-    width: 54px;
-    height: 54px;
-    object-fit: contain;
-    display: block;
-}
-
-.coin__label {
-    font-size: 0.85rem;
-    font-weight: 700;
-}
-
-/* Coffees ---------------------------------------------------------------- */
-
-.coffees__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-
-.coffee {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 14px;
-    text-align: center;
-    display: grid;
-    gap: 8px;
-    align-content: start;
-}
-
-.coffee__image {
-    width: 100%;
-    height: 120px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-}
-
-/* Remote images stay invisible until they load, so a failure shows nothing
-   instead of a broken icon. The space is reserved, so nothing jumps. */
-.remote-image {
-    opacity: 0;
-    transition: opacity 180ms ease;
-}
-
-.remote-image--loaded {
-    opacity: 1;
-}
-
-.coffee__name {
-    margin: 0;
-    font-size: 1.05rem;
-}
-
-.coffee__price {
-    margin: 0;
-    font-size: 1.35rem;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-}
-
-.coffee__buy {
-    min-height: 44px;
-    border: none;
-    border-radius: 8px;
-    background: var(--accent);
-    color: var(--accent-ink);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.coffee__buy:disabled {
-    background: #cfc5ba;
-    color: #6d6159;
-    cursor: not-allowed;
-}
-
-.coffee__hint {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--muted);
-    min-height: 1.2rem;
-}
-
-/* Receipt ---------------------------------------------------------------- */
-
-.receipt__coffee {
-    margin: 0 0 8px;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--good);
-}
-
-.receipt__amounts {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 2px 12px;
-    margin: 0 0 12px;
-}
-
-.receipt__amounts dt {
-    color: var(--muted);
-}
-
-.receipt__amounts dd {
-    margin: 0;
-    font-variant-numeric: tabular-nums;
-}
-
-.receipt__persistence {
-    margin: 12px 0 0;
-    font-size: 0.85rem;
-    color: var(--muted);
-}
-
-/* Change ----------------------------------------------------------------- */
-
-.change__total {
-    margin: 0 0 8px;
-    font-variant-numeric: tabular-nums;
-}
-
-.change--exact {
-    margin: 0;
-    color: var(--muted);
-}
-
-.change__items {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.change__item {
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 4px 12px;
-    font-variant-numeric: tabular-nums;
-}
-
-.change__coin {
-    font-weight: 700;
-}
-
-/* History ---------------------------------------------------------------- */
-
-.history__controls {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.history__toggle, .history__refresh {
-    min-height: 40px;
-    padding: 0 16px;
-    border: 1px solid var(--accent);
-    border-radius: 8px;
-    background: transparent;
-    color: var(--accent);
-    font-size: 0.95rem;
-    cursor: pointer;
-}
-
-.history__refresh:disabled {
-    border-color: var(--line);
-    color: var(--muted);
-    cursor: not-allowed;
-}
-
-.history__body {
-    margin-top: 12px;
-    overflow-x: auto;
-}
-
-.history__note {
-    margin: 0 0 8px;
-    color: var(--muted);
-}
-
-.history__table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-}
-
-.history__table th, .history__table td {
+.machine__header {
+    grid-area: header;
+    border-top: 3px solid var(--ink);
     border-bottom: 1px solid var(--line);
-    padding: 6px 8px;
-    text-align: left;
-    white-space: nowrap;
+    padding: 22px 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px 24px;
+    flex-wrap: wrap;
 }
+.machine__title { margin: 0; font-size: 1.2rem; font-weight: 650; letter-spacing: -.025em; }
+.machine__subtitle, .coins__note { color: var(--muted); font-size: .8rem; }
+.section__title { margin: 0 0 16px; font-size: .9rem; font-weight: 600; }
 
-.history__table td:nth-child(n+3) {
-    font-variant-numeric: tabular-nums;
+/* Menu */
+.coffees { grid-area: coffees; padding: 32px 28px 32px 0; }
+.coffees__heading { margin-bottom: 28px; }
+.coffees__heading h2 { margin: 0 0 6px; font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 600; letter-spacing: -.04em; line-height: 1.2; }
+.coffees__heading p { margin: 0; font-size: .9rem; color: var(--muted); }
+.coffees__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.coffee {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 14px 14px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--panel);
 }
-
-/* Focus and small screens ------------------------------------------------ */
-
-button:focus-visible {
-    outline: 3px solid #1d4ed8;
-    outline-offset: 2px;
+.coffee__image { display: block; width: 100%; height: 152px; object-fit: contain; margin: 0 auto 22px; }
+.coffee__details { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 8px; }
+.coffee__name { margin: 0; font-size: 1.05rem; font-weight: 600; letter-spacing: -.025em; }
+.coffee__price { margin: 0; font-size: 1rem; font-variant-numeric: tabular-nums; }
+.coffee__hint { margin: 12px 0 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem; }
+.coffee__buy {
+    margin-top: auto;
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    background: var(--accent);
+    color: #fff;
+    font-size: .9rem;
+    font-weight: 600;
 }
+.coffee__buy:hover { background: #2b4235; }
+.coffee__buy:active { background: #203329; }
 
-@media (max-width: 640px) {
-    .coffees__grid {
-        grid-template-columns: 1fr;
-    }
-
-    .coffee {
-        grid-template-columns: 100px 1fr;
-        align-items: center;
-        text-align: left;
-    }
-
-    .coffee__image {
-        width: 96px;
-        height: 96px;
-        grid-row: span 4;
-    }
-
-    .coins__grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    .balance__amount {
-        font-size: 2rem;
-    }
+/* Payment: every denomination remains clickable, including rejected coins. */
+.payment { grid-area: payment; padding: 30px 0 28px 28px; border-left: 1px solid var(--line); }
+.balance__label { margin: 0; font-size: .9rem; font-weight: 600; }
+.balance__amount { margin: 0; font-size: 3.5rem; line-height: 1.3; letter-spacing: -.05em; font-weight: 400; font-variant-numeric: tabular-nums; }
+.message { margin: 10px 0 24px; min-height: 3em; font-size: .85rem; color: var(--muted); overflow-wrap: anywhere; }
+.coins { padding-top: 22px; border-top: 1px solid var(--line); }
+.coins__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 8px; }
+.coin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 82px;
+    min-width: 0;
+    padding: 8px 2px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--panel);
+    color: var(--ink);
 }
+.coin:hover { border-color: var(--accent); background: #e9ede6; }
+.coin:active { background: #dce4d9; }
+.coin__image { display: block; width: 40px; height: 40px; object-fit: contain; }
+.coin__label { font-size: .8rem; font-weight: 600; }
+.coins__note { margin: 14px 0 0; line-height: 1.6; }
+.remote-image { opacity: 0; }
+.remote-image--loaded { opacity: 1; }
 
-/* Blazor error banner ---------------------------------------------------- */
+/* Receipt and history remain in the document flow, without overlays. */
+.receipt, .history { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 22px 0; }
+.receipt__coffee { margin: 0 0 16px; font-size: 1.2rem; font-weight: 600; color: var(--good); }
+.receipt__amounts { display: grid; grid-template-columns: auto 1fr; gap: 4px 24px; margin: 0 0 16px; }
+.receipt__amounts dt { color: var(--muted); }
+.receipt__amounts dd { margin: 0; font-variant-numeric: tabular-nums; }
+.receipt__persistence { margin: 16px 0 0; font-size: .8rem; color: var(--muted); }
+.change__total { margin: 0 0 10px; font-variant-numeric: tabular-nums; }
+.change--exact { margin: 0; color: var(--muted); }
+.change__items { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.change__item { border: 1px solid var(--line); border-radius: 3px; padding: 6px 12px; background: var(--panel); font-variant-numeric: tabular-nums; }
+.change__coin { font-weight: 600; }
+.history__controls { display: flex; gap: 12px; flex-wrap: wrap; }
+.history__toggle, .history__refresh { min-height: 44px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 3px; background: transparent; color: var(--ink); font-size: .85rem; }
+.history__toggle:hover, .history__refresh:hover { background: var(--panel); border-color: var(--muted); }
+.history__refresh:disabled { opacity: .5; cursor: wait; }
+.history__body { margin-top: 18px; overflow-x: auto; }
+.history__note { margin: 0 0 12px; color: var(--muted); font-size: .9rem; }
+.history__table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.history__table th, .history__table td { border-bottom: 1px solid var(--line); padding: 12px; text-align: left; white-space: nowrap; }
+.history__table th { font-weight: 600; background: var(--panel); }
+.history__table td:nth-child(n+3) { font-variant-numeric: tabular-nums; }
 
-#blazor-error-ui {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    padding: 12px 16px;
-    background: #ffeaa7;
-    color: #2b211b;
-    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.2);
+@media (max-width: 1000px) {
+    .machine { padding: 0 24px 24px; grid-template-columns: minmax(0, 1fr) 280px; }
+    .coffees { padding-right: 20px; }
+    .coffees__grid { gap: 10px; }
+    .coffee { padding: 14px 10px; }
+    .coffee__image { height: 116px; }
+    .payment { padding-left: 20px; }
 }
-
-#blazor-error-ui .dismiss {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    cursor: pointer;
+@media (max-width: 780px) {
+    .machine { margin: 16px auto; grid-template-columns: minmax(0, 1fr); grid-template-areas: "header" "payment" "coffees"; }
+    .machine__header { padding: 16px 0; gap: 6px; }
+    .payment { border-left: 0; border-bottom: 1px solid var(--line); padding: 20px 0; }
+    .balance__amount { font-size: 2.75rem; }
+    .message { min-height: 1.5em; margin: 6px 0 18px; }
+    .coins { padding-top: 16px; }
+    .coins__grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+    .coffees { padding: 24px 0; }
+    .coffees__heading { margin-bottom: 20px; }
 }
+@media (max-width: 520px) {
+    .machine { padding: 0 16px 16px; }
+    .coins__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .coffees__grid { grid-template-columns: minmax(0, 1fr); }
+    .coffee { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 0 16px; padding: 16px; }
+    .coffee__image { grid-row: 1 / 4; width: 90px; height: 110px; margin: auto; }
+    .coffee__details, .coffee__hint, .coffee__buy { grid-column: 2; }
+    .coffee__hint { margin: 8px 0 12px; padding-top: 8px; }
+    /* Failed images leave a compact text-only card. */
+    .coffee:not(:has(.coffee__image)) { grid-template-columns: minmax(0, 1fr); }
+    .coffee:not(:has(.coffee__image)) > * { grid-column: 1; }
+}
+#blazor-error-ui { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; padding: 16px 44px 16px 16px; background: #fff0c2; color: #302817; border-top: 1px solid #cfb873; }
+#blazor-error-ui .dismiss { position: absolute; top: 12px; right: 16px; cursor: pointer; }
