@@ -11,7 +11,7 @@ C# · .NET 10 · .NET MAUI · Blazor Hybrid · Razor · Supabase/PostgreSQL · x
 ## Projects
 
 - `CoffeeMachine.Core`: business rules and local machine state.
-- `CoffeeMachine.Maui`: Windows/Android application and Supabase integration.
+- `CoffeeMachine.Maui`: Windows/Android application and database integration.
 - `CoffeeMachine.Tests`: xUnit tests for the business logic.
 
 ## Run
