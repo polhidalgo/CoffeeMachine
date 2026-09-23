@@ -18,8 +18,14 @@
             {
                 <button type="button"
                         class="coin"
+                        aria-label="Insert @FormatCoin(cents) coin"
                         @onclick="() => InsertCoin(cents)">
-                    @FormatCoin(cents)
+
+                    <RemoteImage Path="@($"coins/{cents}.png")"
+                                 Alt="@cents.ToString()"
+                                 CssClass="coin__image" />
+
+                    <span class="coin__label">@FormatCoin(cents)</span>
                 </button>
             }
         </div>
@@ -34,6 +40,10 @@
                 var missingCents = priceCents - Machine.BalanceCents;
 
                 <article class="coffee">
+                    <RemoteImage Path="@($"coffees/{CoffeeImageName(coffeeType)}.png")"
+                                 Alt="@coffeeType.ToString()"
+                                 CssClass="coffee__image" />
+
                     <h3 class="coffee__name">@coffeeType</h3>
                     <p class="coffee__price">@FormatAmount(priceCents)</p>
                     <button type="button"

@@ -106,7 +106,8 @@ html, body {
 }
 
 .coin {
-    min-height: 56px;
+    min-height: 84px;
+    aspect-ratio: 1 / 1;
     border: 2px solid var(--accent);
     border-radius: 50%;
     background: #fdf8f2;
@@ -114,11 +115,32 @@ html, body {
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
-    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 2px;
+    padding: 6px;
+    transition: transform 120ms ease, background 120ms ease;
 }
 
 .coin:hover {
     background: #f0e4d6;
+}
+
+.coin:active {
+    transform: scale(0.96);
+}
+
+.coin__image {
+    width: 54px;
+    height: 54px;
+    object-fit: contain;
+    display: block;
+}
+
+.coin__label {
+    font-size: 0.85rem;
+    font-weight: 700;
 }
 
 /* Coffees ---------------------------------------------------------------- */
@@ -137,6 +159,25 @@ html, body {
     display: grid;
     gap: 8px;
     align-content: start;
+}
+
+.coffee__image {
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Remote images stay invisible until they load, so a failure shows nothing
+   instead of a broken icon. The space is reserved, so nothing jumps. */
+.remote-image {
+    opacity: 0;
+    transition: opacity 180ms ease;
+}
+
+.remote-image--loaded {
+    opacity: 1;
 }
 
 .coffee__name {
@@ -300,6 +341,18 @@ button:focus-visible {
 @media (max-width: 640px) {
     .coffees__grid {
         grid-template-columns: 1fr;
+    }
+
+    .coffee {
+        grid-template-columns: 100px 1fr;
+        align-items: center;
+        text-align: left;
+    }
+
+    .coffee__image {
+        width: 96px;
+        height: 96px;
+        grid-row: span 4;
     }
 
     .coins__grid {

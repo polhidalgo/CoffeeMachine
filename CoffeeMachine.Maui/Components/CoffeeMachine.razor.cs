@@ -92,6 +92,15 @@ public partial class CoffeeMachine : ComponentBase
         };
     }
 
+    // Match enum and name from database
+    private static string CoffeeImageName(CoffeeType coffeeType) => coffeeType switch
+    {
+        CoffeeType.Cappuccino => "cappuccino",
+        CoffeeType.Latte => "latte",
+        CoffeeType.Decaf => "decaf",
+        _ => throw new ArgumentOutOfRangeException(nameof(coffeeType))
+    };
+
     private static string FormatAmount(int cents) => MoneyFormat.Amount(cents);
 
     private static string FormatCoin(int cents) => MoneyFormat.Coin(cents);

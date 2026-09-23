@@ -1,0 +1,10 @@
+@* Images for coins and coffees *@
+
+@if (!_failed && Options.CanLoadAssets)
+{
+    <img src="@ImageUrl"
+         alt="@Alt"
+         class="@ImageClass"
+         @onload="HandleLoaded"
+         @onerror="HandleError" />
+}
