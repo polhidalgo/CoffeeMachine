@@ -1,0 +1,334 @@
+:root {
+    --surface: #f5f1ec;
+    --panel: #ffffff;
+    --ink: #2b211b;
+    --muted: #6d6159;
+    --line: #ded4c9;
+    --accent: #4b2e1f;
+    --accent-ink: #ffffff;
+    --good: #1f6b43;
+    --warn: #9a3412;
+    --radius: 12px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.45;
+}
+
+.machine {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 16px 16px 48px;
+    display: grid;
+    gap: 16px;
+}
+
+.machine__title {
+    margin: 8px 0 0;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.section__title {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+}
+
+/* Balance ---------------------------------------------------------------- */
+
+.balance {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-align: center;
+}
+
+.balance__label {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.balance__amount {
+    margin: 4px 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.balance__coins {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+/* Message ---------------------------------------------------------------- */
+
+.message {
+    margin: 0;
+    min-height: 1.5rem;
+    padding: 10px 14px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+/* Coins ------------------------------------------------------------------ */
+
+.coins, .coffees, .receipt, .history {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+}
+
+.coins__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.coin {
+    min-height: 56px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    background: #fdf8f2;
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    aspect-ratio: 1 / 1;
+}
+
+.coin:hover {
+    background: #f0e4d6;
+}
+
+/* Coffees ---------------------------------------------------------------- */
+
+.coffees__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.coffee {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    text-align: center;
+    display: grid;
+    gap: 8px;
+    align-content: start;
+}
+
+.coffee__name {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.coffee__price {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.coffee__buy {
+    min-height: 44px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.coffee__buy:disabled {
+    background: #cfc5ba;
+    color: #6d6159;
+    cursor: not-allowed;
+}
+
+.coffee__hint {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+    min-height: 1.2rem;
+}
+
+/* Receipt ---------------------------------------------------------------- */
+
+.receipt__coffee {
+    margin: 0 0 8px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--good);
+}
+
+.receipt__amounts {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2px 12px;
+    margin: 0 0 12px;
+}
+
+.receipt__amounts dt {
+    color: var(--muted);
+}
+
+.receipt__amounts dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.receipt__persistence {
+    margin: 12px 0 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+/* Change ----------------------------------------------------------------- */
+
+.change__total {
+    margin: 0 0 8px;
+    font-variant-numeric: tabular-nums;
+}
+
+.change--exact {
+    margin: 0;
+    color: var(--muted);
+}
+
+.change__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.change__item {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-variant-numeric: tabular-nums;
+}
+
+.change__coin {
+    font-weight: 700;
+}
+
+/* History ---------------------------------------------------------------- */
+
+.history__controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.history__toggle, .history__refresh {
+    min-height: 40px;
+    padding: 0 16px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--accent);
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.history__refresh:disabled {
+    border-color: var(--line);
+    color: var(--muted);
+    cursor: not-allowed;
+}
+
+.history__body {
+    margin-top: 12px;
+    overflow-x: auto;
+}
+
+.history__note {
+    margin: 0 0 8px;
+    color: var(--muted);
+}
+
+.history__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.history__table th, .history__table td {
+    border-bottom: 1px solid var(--line);
+    padding: 6px 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.history__table td:nth-child(n+3) {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Focus and small screens ------------------------------------------------ */
+
+button:focus-visible {
+    outline: 3px solid #1d4ed8;
+    outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+    .coffees__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .coins__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .balance__amount {
+        font-size: 2rem;
+    }
+}
+
+/* Blazor error banner ---------------------------------------------------- */
+
+#blazor-error-ui {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 12px 16px;
+    background: #ffeaa7;
+    color: #2b211b;
+    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.2);
+}
+
+#blazor-error-ui .dismiss {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    cursor: pointer;
+}

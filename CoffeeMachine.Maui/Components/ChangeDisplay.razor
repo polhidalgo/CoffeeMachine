@@ -1,0 +1,33 @@
+@* Component to show if the change was exact or not in the receipt, if not shows the changeitem object as list*@
+
+@if (ChangeCents == 0)
+{
+    <p class="change change--exact">No change.</p>
+}
+else
+{
+    <div class="change">
+        <p class="change__total">Change returned: <strong>@FormatAmount(ChangeCents)</strong></p>
+        <ul class="change__items">
+            @foreach (var item in Items)
+            {
+                <li class="change__item">
+                    <span class="change__coin">@FormatCoin(item.DenominationCents)</span>
+                    <span class="change__quantity">× @item.Quantity</span>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+@code {
+    [Parameter, EditorRequired]
+    public int ChangeCents { get; set; }
+
+    [Parameter, EditorRequired]
+    public IReadOnlyList<ChangeItem> Items { get; set; } = [];
+
+    private static string FormatAmount(int cents) => MoneyFormat.Amount(cents);
+
+    private static string FormatCoin(int cents) => MoneyFormat.Coin(cents);
+}

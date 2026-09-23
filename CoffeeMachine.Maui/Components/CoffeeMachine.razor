@@ -1,0 +1,74 @@
+@* Dinamic HTML of root screen *@
+
+<main class="machine">
+
+    <h1 class="machine__title">Virtual Coffee Machine</h1>
+
+    <section class="balance" aria-label="Current balance">
+        <p class="balance__label">Balance</p>
+        <p class="balance__amount">@FormatAmount(Machine.BalanceCents)</p>
+    </section>
+
+    <p class="message" role="status" aria-live="polite">@_message</p>
+
+    <section class="coins" aria-label="Insert a coin">
+        <h2 class="section__title">Insert a coin</h2>
+        <div class="coins__grid">
+            @foreach (var cents in CoinButtons)
+            {
+                <button type="button"
+                        class="coin"
+                        @onclick="() => InsertCoin(cents)">
+                    @FormatCoin(cents)
+                </button>
+            }
+        </div>
+    </section>
+
+    <section class="coffees" aria-label="Choose your coffee">
+        <h2 class="section__title">Choose your coffee</h2>
+        <div class="coffees__grid">
+            @foreach (var coffeeType in CoffeeTypes)
+            {
+                var priceCents = CoffeeMachineService.GetPriceCents(coffeeType);
+                var missingCents = priceCents - Machine.BalanceCents;
+
+                <article class="coffee">
+                    <h3 class="coffee__name">@coffeeType</h3>
+                    <p class="coffee__price">@FormatAmount(priceCents)</p>
+                    <button type="button"
+                            class="coffee__buy"
+                            @onclick="() => BuyAsync(coffeeType)">
+                        Order
+                    </button>
+                    <p class="coffee__hint">
+                        @(missingCents > 0 ? $"Insert {FormatAmount(missingCents)} more" : "Ready")
+                    </p>
+                </article>
+            }
+        </div>
+    </section>
+
+    @if (Machine.LatestPurchase is { } purchase)
+    {
+        <section class="receipt" aria-label="Last purchase">
+            <h2 class="section__title">Last purchase</h2>
+            <p class="receipt__coffee">@purchase.CoffeeType dispensed</p>
+            <dl class="receipt__amounts">
+                <dt>Price</dt>
+                <dd>@FormatAmount(purchase.CoffeePriceCents)</dd>
+                <dt>Inserted</dt>
+                <dd>@FormatAmount(purchase.InsertedCents)</dd>
+            </dl>
+
+            <ChangeDisplay ChangeCents="purchase.ChangeCents" Items="purchase.Change" />
+
+            <p class="receipt__persistence" role="status" aria-live="polite">
+                @PersistenceMessage(purchase)
+            </p>
+        </section>
+    }
+
+    <TransactionHistory />
+
+</main>

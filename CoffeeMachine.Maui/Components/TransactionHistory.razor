@@ -1,0 +1,75 @@
+@* SHow last transactions if bbdd connection is configured *@
+
+<section class="history" aria-label="Transaction history">
+
+    <div class="history__controls">
+        <button type="button" class="history__toggle" @onclick="ToggleAsync">
+            @(_isOpen ? "Hide history" : "Show history")
+        </button>
+
+        @if (_isOpen)
+        {
+            <button type="button"
+                    class="history__refresh"
+                    disabled="@_isLoading"
+                    @onclick="RefreshAsync">
+                Refresh
+            </button>
+        }
+    </div>
+
+    @if (_isOpen)
+    {
+        <div class="history__body" role="status" aria-live="polite">
+            @if (_isLoading)
+            {
+                <p class="history__note">Loading history…</p>
+            }
+            else if (_status == PersistenceStatus.Disabled)
+            {
+                <p class="history__note">History disabled. No Supabase settings.</p>
+            }
+            else if (_status != PersistenceStatus.Success)
+            {
+                <p class="history__note">History unavailable. Try Refresh.</p>
+
+                @if (_records.Count > 0)
+                {
+                    <p class="history__note">Showing the rows loaded earlier; they are not up to date.</p>
+                }
+            }
+            else if (_records.Count == 0)
+            {
+                <p class="history__note">No transactions saved yet.</p>
+            }
+
+            @if (_records.Count > 0)
+            {
+                <table class="history__table">
+                    <thead>
+                        <tr>
+                            <th scope="col">When (UTC)</th>
+                            <th scope="col">Coffee</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Inserted</th>
+                            <th scope="col">Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var record in _records)
+                        {
+                            <tr>
+                                <td>@FormatTimestamp(record.CreatedAt)</td>
+                                <td>@record.CoffeeType</td>
+                                <td>@FormatAmount(record.CoffeePriceCents)</td>
+                                <td>@FormatAmount(record.InsertedCents)</td>
+                                <td>@FormatAmount(record.ChangeCents)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    }
+
+</section>
